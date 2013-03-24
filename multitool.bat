@@ -7,17 +7,10 @@ echo -------------------------------------------------------------------------- 
 echo ^|%date% -- %time%^| >> APK-Multi-Tool2.log
 echo -------------------------------------------------------------------------- >> APK-Multi-Tool2.log
 multitool 0 2>> APK-Multi-Tool2.log
-
-
-
 :error
-
 :skipme
 cd "%~dp0"
 mode con:cols=90 lines=50
-
-
-
 cls
 set usrc=9
 set dec=0
