@@ -1,33 +1,76 @@
-ECHO  ----------------------------------
-ECHO  Simple Tasks Such As Image Editing
-ECHO  ----------------------------------
-ECHO  0    Adb pull                     
-ECHO  1    Extract apk                  
-ECHO  2    Optimize images inside       
-ECHO  3    Zip apk                     
-ECHO  4    Sign apk with Testkeys (Dont
-ECHO       do this IF its a system apk)
-ECHO  5    Zipalign apk (Do once apk is
-ECHO       created/signed)             
-ECHO       Install apk (Dont do this IF
-ECHO       system apk, do adb push)     
-ECHO  7    Zip / Sign / Install apk 
-ECHO       (All in one step)
-ECHO  8    Adb push (Only for system apk)
-ECHO  ------------------------------------
-ECHO  Advanced Tasks Such As Code Editing
-ECHO  ------------------------------------
-ECHO  9    Decompile apk                  
-ECHO  10   Decompile apk (with dependencies)          (Read the Instructions before
-ECHO       (For proprietary rom apks)                    using this feature)
-ECHO  11   Compile System APK files               17   Batch Decompile apk Files
-ECHO  12   Compile Non-System APK Files           18   Batch Compile apk Files
-ECHO  13   Sign apk with Android Market 
-ECHO       supported Key
-ECHO  14   Install apk    
-ECHO  15   Compile apk / Sign apk / Install
-ECHO       apk (Non-System Apps Only)
-ECHO  -----------------------------------
-ECHO  Themers Convertion Tools
-ECHO  -----------------------------------
-ECHO  16   Batch Theme Image Transfer
+ECHO  **************************************************************************************************************************
+ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc% ^* Heap Size: %heapy%mb ^*  
+ECHO  **************************************************************************************************************************
+ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
+ECHO  **************************************************************************************************************************
+ECHO                                                    HTTP://APKMULTITOOL.COM
+ECHO  *******************************************************************************************
+ECHO  * Simple Tasks Such As Image Editing                                                      *
+ECHO  *******************************************************************************************
+ECHO  * 0    Adb pull                                                                           *
+ECHO  * 1    Extract apk                                                                        *
+ECHO  * 2    Optimize images inside                                                             *
+ECHO  * 3    Zip apk                                                                            *
+ECHO  * 4    Sign apk with Testkeys (Dont do this IF its a system apk)                          *
+ECHO  * 5    Zipalign apk (Do once apk is created/signed) Install apk (Dont do this IF          *
+ECHO  *     system apk, do adb push)                                                            *
+ECHO  * 6    Install apk (Dont do this IF     system apk, do adb push)                          *
+ECHO  * 7    Zip / Sign / Install apk (All in one step)                                         *
+ECHO  * 8    Adb push (Only for system apk)                                                     *
+ECHO  *******************************************************************************************
+SET /P menunr=Please make your decision:
+ECHO  **************************************************************************************************************************
+ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc% ^* Heap Size: %heapy%mb ^*  
+ECHO  **************************************************************************************************************************
+ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
+ECHO  **************************************************************************************************************************
+ECHO                                                    HTTP://APKMULTITOOL.COM
+ECHO  *******************************************************************************************
+ECHO  * Advanced Tasks Such As Code Editing                                                     *
+ECHO  *******************************************************************************************
+ECHO  * 9    Decompile apk                                                                      *
+ECHO  * 10   Decompile apk (with dependencies)(For proprietary rom apks)                        *
+ECHO  * 11   Compile System APK files                                                           *
+ECHO  * 12   Compile Non-System APK Files                                                       *
+ECHO  * 13   Sign apk with Android Market supported Key                                         *
+ECHO  * 14   Install apk                                                                        *
+ECHO  * 15   Compile apk / Sign apk / Install apk (Non-System Apps Only)                        *
+ECHO  *******************************************************************************************
+SET /P menunr=Please make your decision:
+ECHO  *******************************************************************************************
+ECHO  * Themers Convertion Tools                                                                *
+ECHO  *******************************************************************************************
+ECHO  * 16   Batch Theme Image Transfer (Read the Instructions before                           *
+ECHO  *      using this feature)                                                                *
+ECHO  *******************************************************************************************
+SET /P menunr=Please make your decision:
+ECHO  *******************************************************************************************
+ECHO  * Batch Operations                                                                        *
+ECHO  *******************************************************************************************
+ECHO  * 17   Batch Decompile apk Files                                                          *
+ECHO  * 18   Batch Compile apk Files                                                            *
+ECHO  * 19   Batch Optimize Apk (inside place-apk-here-to-batch-optimize only)                  *
+ECHO  * 20   Sign an apk(Batch support)(inside place-apk-here-for-signing folder only)          *
+ECHO  * 21   Batch optimize ogg files (inside place-ogg-here only)                              *     
+ECHO  *******************************************************************************************
+SET /P menunr=Please make your decision:
+ECHO  *******************************************************************************************
+ECHO  * Tools Stuff                                                                             *
+ECHO  *******************************************************************************************
+ECHO  * 22   Clean Files/Folders                                                                *
+ECHO  * 23   Select compression level for apk's                                                 *
+ECHO  * 24   Select compression level for Resources.arsc                                        *
+ECHO  * 25   Set Max Memory Size (Only use IF getting stuck at decompiling/compiling)           *
+ECHO  * 26   Read Log                                                                           *
+ECHO  * 27   Set current project                                                                *
+ECHO  * 28   About / Tips / Debug Section                                                       *
+ECHO  * 29   Switch decompile mode (Allows you to pick to fully decompile the APK's or JAR's    *
+ECHO  *      or to just decompile Sources or just the Resources or do a raw dump allowing you   *
+ECHO  *      to just edit the normal images)                                                    *
+ECHO  * 30   Donations                                                                          *
+ECHO  *      I would personally like to thank you for your superior generosity and kindness if  * 
+ECHO  *      you are one of those droid loving fans donating to the site to help keep us going. *
+ECHO  *      We hope to continue growing and for development to keep getting bigger and bigger  *
+ECHO  *      as time goes on. Until then, Hope to see you around! Have a great day!"            *
+ECHO  * 00   Quit                                                                               *
+ECHO  *******************************************************************************************

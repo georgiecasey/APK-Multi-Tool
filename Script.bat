@@ -87,7 +87,7 @@ ECHO  4    Sign apk with Testkeys (Dont          12   Compile Non-System APK Fil
 ECHO       do this IF its a system apk)          13   Sign apk with Android Market 
 ECHO  5    Zipalign apk (Do once apk is               supported Key
 ECHO       created/signed)                       14   Install apk    
-ECHO       Install apk (Dont do this IF          15   Compile apk / Sign apk / Install apk
+ECHO  6     Install apk (Dont do this IF          15   Compile apk / Sign apk / Install apk
 ECHO       system apk, do adb push)                   (Non-System Apps Only)
 ECHO  7    Zip / Sign / Install apk 
 ECHO       (All in one step)
