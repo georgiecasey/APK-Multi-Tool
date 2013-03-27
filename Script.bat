@@ -10,7 +10,7 @@ Script 0 2>> APK-Multi-Tool.log
 :error
 :skipme
 cd "%~dp0"
-mode con:cols=140 lines=50
+mode con:cols=105 lines=50
 CLS
 set usrc=9
 set resusrc=0
@@ -76,23 +76,23 @@ ECHO  **************************************************************************
 ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
 ECHO  ********************************************************************************************
 ECHO                                                    HTTP://APKMULTITOOL.COM
-ECHO ********************************************************************************************
-ECHO * 0. IMAGE EDITING                                                                         *
-ECHO *    This feature allows you to edit images without the need to decompile the apk          *
-ECHO *    files making simple image changes such as icones and basic image editing              *
-ECHO ********************************************************************************************
-ECHO * 1. CODE EDITING                                                                          *
-ECHO *    This feature not only allows eding of the images it also allows you to edit           *
-ECHO *    the sourcecode of the select apk to make actual code changes                          *
-ECHO ********************************************************************************************
-ECHO * 2. ROM THEME PORTER                                                                      *
-ECHO *    This feature allows you to port entire themes from one rom to another                 *
-ECHO *    without the need to resign the apk files making fast easy rom theme ports             *
-ECHO ********************************************************************************************
-ECHO * 3.  BATCH OPERATIONS                                                                     *
-ECHO *     This feature allows you to do many apk files at the same time for mass file editing  *
-ECHO *     as well as the ability to compile multiple files at the same time                    *
-ECHO ********************************************************************************************
+ECHO  *******************************************************************************************
+ECHO  * 0. IMAGE EDITING                                                                        *
+ECHO  *    This feature allows you to edit images without the need to decompile the apk         *
+ECHO  *    files making simple image changes such as icones and basic image editing             *
+ECHO  *******************************************************************************************
+ECHO  * 1. CODE EDITING                                                                         *
+ECHO  *    This feature not only allows eding of the images it also allows you to edit          *
+ECHO  *    the sourcecode of the select apk to make actual code changes                         *
+ECHO  *******************************************************************************************
+ECHO  * 2. ROM THEME PORTER                                                                     *
+ECHO  *    This feature allows you to port entire themes from one rom to another                *
+ECHO  *    without the need to resign the apk files making fast easy rom theme ports            *
+ECHO  *******************************************************************************************
+ECHO  * 3.  BATCH OPERATIONS                                                                    *
+ECHO  *     This feature allows you to do many apk files at the same time for mass file editing *
+ECHO  *     as well as the ability to compile multiple files at the same time                   *
+ECHO  *******************************************************************************************
 ECHO  * Tools Stuff                                                                             *
 ECHO  *******************************************************************************************
 ECHO  * a.   Clean Files/Folders                                                                *
@@ -109,7 +109,7 @@ ECHO  * i.   Donations                                                          
 ECHO  *      I would personally like to thank you for your superior generosity and kindness if  * 
 ECHO  *      you are one of those droid loving fans donating to the site to help keep us going. *
 ECHO  *      We hope to continue growing and for development to keep getting bigger and bigger  *
-ECHO  *      as time goes on. Until then, Hope to see you around! Have a great day!"            *
+ECHO  *      as time goes on. Until then, Hope to see you around Have a great day               *
 ECHO  * 00.   Quit                                                                              *
 ECHO  *******************************************************************************************
 SET /P menunr=Please make your decision:
