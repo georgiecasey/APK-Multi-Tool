@@ -69,6 +69,7 @@ IF %dec%==2 (set decs=Resource Files only)
 IF %dec%==3 (set decs=Raw Format Only)
 cd "%~dp0"
 set menunr=GARBAGE
+CLS
 ECHO  **************************************************************************************************************************
 ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc% ^* Heap Size: %heapy%mb ^*  
 ECHO  **************************************************************************************************************************
@@ -127,6 +128,10 @@ IF %menunr%==g (goto about)
 IF %menunr%==h (goto switchc)
 IF %menunr%==i (goto dotome)
 IF %menunr%==00 (goto quit)
+:WHAT
+ECHO You went crazy and entered something that wasnt part of the menu options
+PAUSE
+goto restart
 :MENU00
 set menunr=GARBAGE1
 CLS
@@ -191,6 +196,10 @@ IF %menunr%==h (goto switchc)
 IF %menunr%==i (goto dotome)
 IF %menunr%==00 (goto quit)
 IF %capp%==None goto noproj
+:WHAT
+ECHO You went crazy and entered something that wasnt part of the menu options
+PAUSE
+goto MENU00
 :MENU01
 set menunr=GARBAGE2
 CLS
@@ -250,7 +259,11 @@ IF %menunr%==g (goto about)
 IF %menunr%==h (goto switchc)
 IF %menunr%==i (goto dotome)
 IF %menunr%==00 (goto quit)
-IF %capp%==None goto noproj
+IF %capp%==None goto noproj01
+:WHAT
+ECHO You went crazy and entered something that wasnt part of the menu options
+PAUSE
+goto MENU01
 :MENU02
 set menunr=GARBAGE3
 CLS
@@ -293,6 +306,10 @@ IF %menunr%==g (goto about)
 IF %menunr%==h (goto switchc)
 IF %menunr%==i (goto dotome)
 IF %menunr%==00 (goto quit)
+:WHAT
+ECHO You went crazy and entered something that wasnt part of the menu options
+PAUSE
+goto MENU02
 :MENU03
 set menunr=GARBAGE4
 CLS
@@ -346,7 +363,7 @@ IF %menunr%==00 (goto quit)
 :WHAT
 ECHO You went crazy and entered something that wasnt part of the menu options
 PAUSE
-goto restart
+goto MENU03
 :switchc
 set /a dec+=1 
 IF (%dec%)==(4) (set /a dec=0)
@@ -639,7 +656,11 @@ goto restart
 :noproj
 ECHO Please Select A Project To Work On (Option f)
 PAUSE
-goto restart
+goto MENU00
+:noproj01
+ECHO Please Select A Project To Work On (Option f)
+PAUSE
+goto MENU01
 :ap
 ECHO Where do you want adb to pull the apk from? 
 ECHO Example of input : /system/app/launcher.apk
