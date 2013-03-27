@@ -69,54 +69,107 @@ IF %dec%==2 (set decs=Resource Files only)
 IF %dec%==3 (set decs=Raw Format Only)
 cd "%~dp0"
 set menunr=GARBAGE
-CLS
-ECHO  --------------------------------------------------------------------------------------------------------------------------
-ECHO ^| Compression-Level: %usrc% ^| Resources.arsc Compression-Level: %resusrc% ^| Heap Size: %heapy%mb ^|  
-ECHO  --------------------------------------------------------------------------------------------------------------------------
-ECHO ^| Decompile : %decs% ^| Current-App: %capp% ^|
-ECHO  --------------------------------------------------------------------------------------------------------------------------
+ECHO  **************************************************************************************************************************
+ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc% ^* Heap Size: %heapy%mb ^*  
+ECHO  **************************************************************************************************************************
+ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
+ECHO  **************************************************************************************************************************
 ECHO                                                    HTTP://APKMULTITOOL.COM
-ECHO  ----------------------------------         ------------------------------------        -----------------------------------
-ECHO  Simple Tasks Such As Image Editing         Advanced Tasks Such As Code Editing         Themers Convertion Tools
-ECHO  ----------------------------------         ------------------------------------        -----------------------------------
-ECHO  0    Adb pull                              9    Decompile apk                          16   Batch Theme Image Transfer
-ECHO  1    Extract apk                           10   Decompile apk (with dependencies)          (Read the Instructions before
-ECHO  2    Optimize images inside                     (For proprietary rom apks)                    using this feature)
-ECHO  3    Zip apk                               11   Compile System APK files               17   Batch Decompile apk Files                  
-ECHO  4    Sign apk with Testkeys (Dont          12   Compile Non-System APK Files           18   Batch Compile apk Files                          
-ECHO       do this IF its a system apk)          13   Sign apk with Android Market 
-ECHO  5    Zipalign apk (Do once apk is               supported Key
-ECHO       created/signed)                       14   Install apk    
-ECHO  6     Install apk (Dont do this IF          15   Compile apk / Sign apk / Install apk
-ECHO       system apk, do adb push)                   (Non-System Apps Only)
-ECHO  7    Zip / Sign / Install apk 
-ECHO       (All in one step)
-ECHO  8    Adb push (Only for system apk)
-ECHO  -----------
-ECHO  tools Stuff
-ECHO  -----------
-ECHO  19   Batch Optimize Apk (inside place-apk-here-to-batch-optimize only)
-ECHO  20   Sign an apk(Batch support)(inside place-apk-here-for-signing folder only)
-ECHO  21   Batch optimize ogg files (inside place-ogg-here only)
-ECHO  22   Clean Files/Folders
-ECHO  23   Select compression level for apk's
-ECHO  24   Select compression level for Resources.arsc
-ECHO  25   Set Max Memory Size (Only use IF getting stuck at decompiling/compiling)
-ECHO  26   Read Log
-ECHO  27   Set current project
-ECHO  28   About / Tips / Debug Section
-ECHO  29   Switch decompile mode (Allows you to pick to fully decompile the APK's or JAR's
-ECHO       or to just decompile Sources or just the Resources or do a raw dump allowing you
-ECHO       to just edit the normal images)
-ECHO  30   Donations
-ECHO       I would personally like to thank you for your superior generosity and kindness if 
-EVHO       you are one of those droid loving fans donating to the site to help keep us going.
-ECHO       We hope to continue growing and for development to keep getting bigger and bigger
-ECHO       as time goes on. Until then, Hope to see you around! Have a great day!" 
-ECHO  00   Quit
-ECHO  -------------------------------------------------------------------------------
+ECHO ********************************************************************************************
+ECHO * 0. IMAGE EDITING                                                                         *
+ECHO *    This feature allows you to edit images without the need to decompile the apk          *
+ECHO *    files making simple image changes such as icones and basic image editing              *
+ECHO ********************************************************************************************
+ECHO * 1. CODE EDITING                                                                          *
+ECHO *    This feature not only allows eding of the images it also allows you to edit           *
+ECHO *    the sourcecode of the select apk to make actual code changes                          *
+ECHO ********************************************************************************************
+ECHO * 2. ROM THEME PORTER                                                                      *
+ECHO *    This feature allows you to port entire themes from one rom to another                 *
+ECHO *    without the need to resign the apk files making fast easy rom theme ports             *
+ECHO ********************************************************************************************
+ECHO * 3.  BATCH OPERATIONS                                                                     *
+ECHO *     This feature allows you to do many apk files at the same time for mass file editing  *
+ECHO *     as well as the ability to compile multiple files at the same time                    *
+ECHO ********************************************************************************************
+ECHO  * Tools Stuff                                                                             *
+ECHO  *******************************************************************************************
+ECHO  * a.   Clean Files/Folders                                                                *
+ECHO  * b.   Select compression level for apk's                                                 *
+ECHO  * c.   Select compression level for Resources.arsc                                        *
+ECHO  * d.   Set Max Memory Size (Only use IF getting stuck at decompiling/compiling)           *
+ECHO  * e.   Read Log                                                                           *
+ECHO  * f.   Set current project                                                                *
+ECHO  * g.   About / Tips / Debug Section                                                       *
+ECHO  * h.   Switch decompile mode (Allows you to pick to fully decompile the APK's or JAR's    *
+ECHO  *      or to just decompile Sources or just the Resources or do a raw dump allowing you   *
+ECHO  *      to just edit the normal images)                                                    *
+ECHO  * i.   Donations                                                                          *
+ECHO  *      I would personally like to thank you for your superior generosity and kindness if  * 
+ECHO  *      you are one of those droid loving fans donating to the site to help keep us going. *
+ECHO  *      We hope to continue growing and for development to keep getting bigger and bigger  *
+ECHO  *      as time goes on. Until then, Hope to see you around! Have a great day!"            *
+ECHO  * 00.   Quit                                                                              *
+ECHO  *******************************************************************************************
 SET /P menunr=Please make your decision:
+IF %menunr%==0 (goto MENU00)
+IF %menunr%==1 (goto MENU01)
+IF %menunr%==2 (goto MENU02)
+IF %menunr%==3 (goto MENU03)
 
+IF %menunr%==a (goto cleanp)
+IF %menunr%==b (goto usrcomp)
+IF %menunr%==c (goto resusrcomp)
+IF %menunr%==d (goto heap)
+IF %menunr%==e (goto logr)
+IF %menunr%==f (goto filesel)
+IF %menunr%==g (goto about)
+IF %menunr%==h (goto switchc)
+IF %menunr%==i (goto dotome)
+IF %menunr%==00 (goto quit)
+:MENU00
+set menunr=GARBAGE1
+CLS
+ECHO  **************************************************************************************************************************
+ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc% ^* Heap Size: %heapy%mb ^*  
+ECHO  **************************************************************************************************************************
+ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
+ECHO  **************************************************************************************************************************
+ECHO                                                    HTTP://APKMULTITOOL.COM
+ECHO  *******************************************************************************************
+ECHO  * Simple Tasks Such As Image Editing                                                      *
+ECHO  *******************************************************************************************
+ECHO  * 0    Adb pull                                                                           *
+ECHO  * 1    Extract apk                                                                        *
+ECHO  * 2    Optimize images inside                                                             *
+ECHO  * 3    Zip apk                                                                            *
+ECHO  * 4    Sign apk with Testkeys (Dont do this IF its a system apk)                          *
+ECHO  * 5    Zipalign apk (Do once apk is created/signed) Install apk (Dont do this IF          *
+ECHO  *      system apk, do adb push)                                                           *
+ECHO  * 6    Install apk (Dont do this IF     system apk, do adb push)                          *
+ECHO  * 7    Zip / Sign / Install apk (All in one step)                                         *
+ECHO  * 8    Adb push (Only for system apk)                                                     *
+ECHO  *******************************************************************************************
+ECHO  * Tools Stuff                                                                             *
+ECHO  *******************************************************************************************
+ECHO  * a.   Clean Files/Folders                                                                *
+ECHO  * b.   Select compression level for apk's                                                 *
+ECHO  * c.   Select compression level for Resources.arsc                                        *
+ECHO  * d.   Set Max Memory Size (Only use IF getting stuck at decompiling/compiling)           *
+ECHO  * e.   Read Log                                                                           *
+ECHO  * f.   Set current project                                                                *
+ECHO  * g.   About / Tips / Debug Section                                                       *
+ECHO  * h.   Switch decompile mode (Allows you to pick to fully decompile the APK's or JAR's    *
+ECHO  *      or to just decompile Sources or just the Resources or do a raw dump allowing you   *
+ECHO  *      to just edit the normal images)                                                    *
+ECHO  * i.   Donations                                                                          *
+ECHO  *      I would personally like to thank you for your superior generosity and kindness if  * 
+ECHO  *      you are one of those droid loving fans donating to the site to help keep us going. *
+ECHO  *      We hope to continue growing and for development to keep getting bigger and bigger  *
+ECHO  *      as time goes on. Until then, Hope to see you around! Have a great day!"            *
+ECHO  * 00.   Quit                                                                              *
+ECHO  *******************************************************************************************
+SET /P menunr=Please make your decision:
 IF %menunr%==0 (goto ap)
 IF %menunr%==1 (goto ex)
 IF %menunr%==2 (goto opt)
@@ -126,30 +179,169 @@ IF %menunr%==5 (goto zipa)
 IF %menunr%==6 (goto ins)
 IF %menunr%==7 (goto alli)
 IF %menunr%==8 (goto apu)
-IF %menunr%==9 (goto de)
-IF %menunr%==10 (goto ded)
-IF %menunr%==11 (goto syscom)
-IF %menunr%==12 (goto nonsyscom)
-IF %menunr%==13 (goto apksignerkey)
-IF %menunr%==14 (goto ins)
-IF %menunr%==15 (goto all)
-IF %menunr%==16 (goto btit)
-IF %menunr%==17 (goto batdec)
-IF %menunr%==18 (goto batcom)
-IF %menunr%==19 (goto bopt)
-IF %menunr%==20 (goto asi)
-IF %menunr%==21 (goto ogg)
-IF %menunr%==22 (goto cleanp)
-IF %menunr%==23 (goto usrcomp)
-IF %menunr%==24 (goto resusrcomp)
-IF %menunr%==25 (goto heap)
-IF %menunr%==26 (goto logr)
-IF %menunr%==27 (goto filesel)
-IF %menunr%==28 (goto about)
-IF %menunr%==29 (goto switchc)
-IF %menunr%==30 (goto dotome)
+
+IF %menunr%==a (goto cleanp)
+IF %menunr%==b (goto usrcomp)
+IF %menunr%==c (goto resusrcomp)
+IF %menunr%==d (goto heap)
+IF %menunr%==e (goto logr)
+IF %menunr%==f (goto filesel)
+IF %menunr%==g (goto about)
+IF %menunr%==h (goto switchc)
+IF %menunr%==i (goto dotome)
 IF %menunr%==00 (goto quit)
 IF %capp%==None goto noproj
+:MENU01
+set menunr=GARBAGE2
+CLS
+ECHO  **************************************************************************************************************************
+ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc% ^* Heap Size: %heapy%mb ^*  
+ECHO  **************************************************************************************************************************
+ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
+ECHO  **************************************************************************************************************************
+ECHO                                                    HTTP://APKMULTITOOL.COM
+ECHO  *******************************************************************************************
+ECHO  * Advanced Tasks Such As Code Editing                                                     *
+ECHO  *******************************************************************************************
+ECHO  * 1.    Decompile apk                                                                     *
+ECHO  * 2.   Decompile apk (with dependencies)(For proprietary rom apks)                        *
+ECHO  * 3.   Compile System APK files                                                           *
+ECHO  * 4.   Compile Non-System APK Files                                                       *
+ECHO  * 5.   Sign apk with Android Market supported Key                                         *
+ECHO  * 6.   Install apk                                                                        *
+ECHO  * 7.   Compile apk / Sign apk / Install apk (Non-System Apps Only)                        *
+ECHO  *******************************************************************************************
+ECHO  * Tools Stuff                                                                             *
+ECHO  *******************************************************************************************
+ECHO  * a.   Clean Files/Folders                                                                *
+ECHO  * b.   Select compression level for apk's                                                 *
+ECHO  * c.   Select compression level for Resources.arsc                                        *
+ECHO  * d.   Set Max Memory Size (Only use IF getting stuck at decompiling/compiling)           *
+ECHO  * e.   Read Log                                                                           *
+ECHO  * f.   Set current project                                                                *
+ECHO  * g.   About / Tips / Debug Section                                                       *
+ECHO  * h.   Switch decompile mode (Allows you to pick to fully decompile the APK's or JAR's    *
+ECHO  *      or to just decompile Sources or just the Resources or do a raw dump allowing you   *
+ECHO  *      to just edit the normal images)                                                    *
+ECHO  * i.   Donations                                                                          *
+ECHO  *      I would personally like to thank you for your superior generosity and kindness if  * 
+ECHO  *      you are one of those droid loving fans donating to the site to help keep us going. *
+ECHO  *      We hope to continue growing and for development to keep getting bigger and bigger  *
+ECHO  *      as time goes on. Until then, Hope to see you around! Have a great day!"            *
+ECHO  * 00.   Quit                                                                              *
+ECHO  *******************************************************************************************
+SET /P menunr=Please make your decision:
+
+IF %menunr%==1 (goto de)
+IF %menunr%==2 (goto ded)
+IF %menunr%==3 (goto syscom)
+IF %menunr%==4 (goto nonsyscom)
+IF %menunr%==5 (goto apksignerkey)
+IF %menunr%==6 (goto ins)
+IF %menunr%==7 (goto all)
+
+IF %menunr%==a (goto cleanp)
+IF %menunr%==b (goto usrcomp)
+IF %menunr%==c (goto resusrcomp)
+IF %menunr%==d (goto heap)
+IF %menunr%==e (goto logr)
+IF %menunr%==f (goto filesel)
+IF %menunr%==g (goto about)
+IF %menunr%==h (goto switchc)
+IF %menunr%==i (goto dotome)
+IF %menunr%==00 (goto quit)
+IF %capp%==None goto noproj
+:MENU02
+set menunr=GARBAGE3
+CLS
+ECHO  *******************************************************************************************
+ECHO  * Themers Convertion Tools                                                                *
+ECHO  *******************************************************************************************
+ECHO  * 1.   Batch Theme Image Transfer (Read the Instructions before                           *
+ECHO  *      using this feature)                                                                *
+ECHO  *******************************************************************************************
+ECHO  * Tools Stuff                                                                             *
+ECHO  *******************************************************************************************
+ECHO  * a.   Clean Files/Folders                                                                *
+ECHO  * b.   Select compression level for apk's                                                 *
+ECHO  * c.   Select compression level for Resources.arsc                                        *
+ECHO  * d.   Set Max Memory Size (Only use IF getting stuck at decompiling/compiling)           *
+ECHO  * e.   Read Log                                                                           *
+ECHO  * f.   Set current project                                                                *
+ECHO  * g.   About / Tips / Debug Section                                                       *
+ECHO  * h.   Switch decompile mode (Allows you to pick to fully decompile the APK's or JAR's    *
+ECHO  *      or to just decompile Sources or just the Resources or do a raw dump allowing you   *
+ECHO  *      to just edit the normal images)                                                    *
+ECHO  * i.   Donations                                                                          *
+ECHO  *      I would personally like to thank you for your superior generosity and kindness if  * 
+ECHO  *      you are one of those droid loving fans donating to the site to help keep us going. *
+ECHO  *      We hope to continue growing and for development to keep getting bigger and bigger  *
+ECHO  *      as time goes on. Until then, Hope to see you around! Have a great day!"            *
+ECHO  * 00.   Quit                                                                              *
+ECHO  *******************************************************************************************
+SET /P menunr=Please make your decision:
+
+IF %menunr%==1 (goto btit)
+
+IF %menunr%==a (goto cleanp)
+IF %menunr%==b (goto usrcomp)
+IF %menunr%==c (goto resusrcomp)
+IF %menunr%==d (goto heap)
+IF %menunr%==e (goto logr)
+IF %menunr%==f (goto filesel)
+IF %menunr%==g (goto about)
+IF %menunr%==h (goto switchc)
+IF %menunr%==i (goto dotome)
+IF %menunr%==00 (goto quit)
+:MENU03
+set menunr=GARBAGE4
+CLS
+ECHO  *******************************************************************************************
+ECHO  * Batch Operations                                                                        *
+ECHO  *******************************************************************************************
+ECHO  * 1.   Batch Decompile apk Files                                                          *
+ECHO  * 2.   Batch Compile apk Files                                                            *
+ECHO  * 3.   Batch Optimize Apk (inside place-apk-here-to-batch-optimize only)                  *
+ECHO  * 4.   Sign an apk(Batch support)(inside place-apk-here-for-signing folder only)          *
+ECHO  * 5.   Batch optimize ogg files (inside place-ogg-here only)                              *     
+ECHO  *******************************************************************************************
+ECHO  * Tools Stuff                                                                             *
+ECHO  *******************************************************************************************
+ECHO  * a.   Clean Files/Folders                                                                *
+ECHO  * b.   Select compression level for apk's                                                 *
+ECHO  * c.   Select compression level for Resources.arsc                                        *
+ECHO  * d.   Set Max Memory Size (Only use IF getting stuck at decompiling/compiling)           *
+ECHO  * e.   Read Log                                                                           *
+ECHO  * f.   Set current project                                                                *
+ECHO  * g.   About / Tips / Debug Section                                                       *
+ECHO  * h.   Switch decompile mode (Allows you to pick to fully decompile the APK's or JAR's    *
+ECHO  *      or to just decompile Sources or just the Resources or do a raw dump allowing you   *
+ECHO  *      to just edit the normal images)                                                    *
+ECHO  * i.   Donations                                                                          *
+ECHO  *      I would personally like to thank you for your superior generosity and kindness if  * 
+ECHO  *      you are one of those droid loving fans donating to the site to help keep us going. *
+ECHO  *      We hope to continue growing and for development to keep getting bigger and bigger  *
+ECHO  *      as time goes on. Until then, Hope to see you around! Have a great day!"            *
+ECHO  * 00.   Quit                                                                              *
+ECHO  *******************************************************************************************
+SET /P menunr=Please make your decision:
+
+IF %menunr%==1 (goto batdec)
+IF %menunr%==2 (goto batcom)
+IF %menunr%==3 (goto bopt)
+IF %menunr%==4 (goto asi)
+IF %menunr%==5 (goto ogg)
+
+IF %menunr%==a (goto cleanp)
+IF %menunr%==b (goto usrcomp)
+IF %menunr%==c (goto resusrcomp)
+IF %menunr%==d (goto heap)
+IF %menunr%==e (goto logr)
+IF %menunr%==f (goto filesel)
+IF %menunr%==g (goto about)
+IF %menunr%==h (goto switchc)
+IF %menunr%==i (goto dotome)
+IF %menunr%==00 (goto quit)
 
 :WHAT
 ECHO You went crazy and entered something that wasnt part of the menu options
@@ -350,7 +542,7 @@ ECHO Zipping Apk
 cd other
 7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 cd ..
@@ -361,7 +553,7 @@ ECHO Zipping Apk
 rmdir /S /Q "../out/META-INF"
 7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 cd ..
@@ -370,7 +562,7 @@ cd other
 ECHO Signing Apk
 java -Xmx%heapy%m -jar signapk.jar -w testkey.x509.pem testkey.pk8 ../place-apk-here-for-signing/unsigned%capp% ../place-apk-here-for-signing/signed%capp%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 DEL /Q "../place-apk-here-for-signing/unsigned%capp%"
@@ -381,7 +573,7 @@ ECHO Waiting for device
 ECHO Installing Apk
 "%~dp0other\adb.exe" install -r %~dp0place-apk-here-for-signing/signed%capp%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 goto restart
@@ -445,7 +637,7 @@ xcopy "%~dp0temp" "%~dp0projects\%capp%\res" /S /Y
 rmdir temp /S /Q
 goto restart
 :noproj
-ECHO Please Select A Project To Work On (Option #27)
+ECHO Please Select A Project To Work On (Option f)
 PAUSE
 goto restart
 :ap
@@ -455,7 +647,7 @@ set /P INPUT=Type input: %=%
 ECHO Pulling apk
 "%~dp0other\adb.exe" pull %INPUT% "%~dp0place-apk-here-for-modding\something.apk"
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 goto restart
 )
@@ -517,7 +709,7 @@ goto push_dir
 
 :chk_err_push
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 goto restart
@@ -528,7 +720,7 @@ IF EXIST "%~dp0place-apk-here-for-signing\signed%capp%" "%~dp0other\zipalign.exe
 IF EXIST "%~dp0place-apk-here-for-signing\unsigned%capp%" "%~dp0other\zipalign.exe" -f 4 "%~dp0place-apk-here-for-signing\unsigned%capp%" "%~dp0place-apk-here-for-signing\unsignedaligned%capp%"
 
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 DEL /Q "%~dp0place-apk-here-for-signing\signed%capp%"
@@ -542,7 +734,7 @@ ECHO Extracting apk
 IF EXIST "../projects/%capp%" (rmdir /S /Q "../projects/%capp%")
 7za x -o"../projects/%capp%" "../place-apk-here-for-modding/%capp%"
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 cd ..
@@ -560,7 +752,7 @@ ECHO Zipping Apk
 cd other
 7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 
@@ -572,7 +764,7 @@ ECHO Zipping Apk
 rmdir /S /Q "../out/META-INF"
 7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 
@@ -599,7 +791,7 @@ IF (%dec%)==(2) (java -Xmx%heapy%m -jar apktool.jar d -s ../place-apk-here-for-m
 IF (%dec%)==(3) (java -Xmx%heapy%m -jar apktool.jar d -r -s ../place-apk-here-for-modding/%capp% ../projects/%capp%)
 
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 cd ..
@@ -619,7 +811,7 @@ IF (%dec%)==(2) (java -Xmx%heapy%m -jar apktool.jar d -s ../place-apk-here-for-m
 IF (%dec%)==(3) (java -Xmx%heapy%m -jar apktool.jar d -r -s ../place-apk-here-for-modding/%capp% ../projects/%capp%)
 
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 cd ..
@@ -639,7 +831,7 @@ goto restart
 
 :nojar
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 goto restart
 )
@@ -691,7 +883,7 @@ goto restart
 
 :nojar2
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 goto restart
 )
@@ -772,7 +964,7 @@ set JAVAC_PATH=%JAVA_HOME%\bin\
 set PATH=%PATH%;%JAVAC_PATH%;
 call jarsigner -keystore %KEYSTORE_FILE% -storepass %KEYSTORE_PASS% -keypass %KEYSTORE_PASS% -signedjar ../place-apk-here-for-signing/signed%capp% ../place-apk-here-for-signing/unsigned%capp%  %KEYSTORE_ALIAS% %1
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 
@@ -784,7 +976,7 @@ cd other
 ECHO Signing Apk
 java -Xmx%heapy%m -jar signapk.jar -w testkey.x509.pem testkey.pk8 ../place-apk-here-for-signing/unsigned%capp% ../place-apk-here-for-signing/signed%capp%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 
@@ -797,7 +989,7 @@ ECHO Waiting for device
 ECHO Installing Apk
 "%~dp0other\adb.exe" install -r place-apk-here-for-signing/signed%capp%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 goto restart
@@ -808,14 +1000,14 @@ ECHO Building Apk
 IF EXIST "%~dp0place-apk-here-for-signing\unsigned%capp%" (del /Q "%~dp0place-apk-here-for-signing\unsigned%capp%")
 java -Xmx%heapy%m -jar apktool.jar b "../projects/%capp%" "%~dp0place-apk-here-for-signing\unsigned%capp%"
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 goto restart
 )
 ECHO Signing Apk
 java -Xmx%heapy%m -jar signapk.jar -w testkey.x509.pem testkey.pk8 ../place-apk-here-for-signing/unsigned%capp% ../place-apk-here-for-signing/signed%capp%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 DEL /Q "../place-apk-here-for-signing/unsigned%capp%"
@@ -825,7 +1017,7 @@ ECHO Waiting for device
 ECHO Installing Apk
 "%~dp0other\adb.exe" install -r place-apk-here-for-signing/signed%capp%
 IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option 26)"
+ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 goto restart

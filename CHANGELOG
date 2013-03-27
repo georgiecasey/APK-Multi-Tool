@@ -192,3 +192,4 @@ Completely rewrote how recompiled apk files are stored so to not clutter up the 
 Updated the signer location to match up with the changes to how modified apk files are handled
 Added support to Xperia devices given the ability to install the dependencies 
 Added SemcGenericUxpRes pull support
+Complete rewrite of the GUI cleaning up many on screen issues
