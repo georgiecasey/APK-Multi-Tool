@@ -70,11 +70,11 @@ IF %dec%==3 (set decs=Raw Format Only)
 cd "%~dp0"
 set menunr=GARBAGE
 CLS
-ECHO  ********************************************************************************************
+ECHO  *******************************************************************************************
 ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc% ^* Heap Size: %heapy%mb ^*  
-ECHO  ********************************************************************************************
+ECHO  *******************************************************************************************
 ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
-ECHO  ********************************************************************************************
+ECHO  *******************************************************************************************
 ECHO                                                    HTTP://APKMULTITOOL.COM
 ECHO  *******************************************************************************************
 ECHO  * 0. IMAGE EDITING                                                                        *
@@ -135,25 +135,26 @@ goto restart
 :MENU00
 set menunr=GARBAGE1
 CLS
-ECHO  ********************************************************************************************
+ECHO  *******************************************************************************************
 ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc% ^* Heap Size: %heapy%mb ^*  
-ECHO  ********************************************************************************************
+ECHO  *******************************************************************************************
 ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
-ECHO  ********************************************************************************************
-ECHO                                                    HTTP://APKMULTITOOL.COM
+ECHO  *******************************************************************************************
+ECHO  *                                 HTTP://APKMULTITOOL.COM                                 *
 ECHO  *******************************************************************************************
 ECHO  * Simple Tasks Such As Image Editing                                                      *
 ECHO  *******************************************************************************************
-ECHO  * 0    Adb pull                                                                           *
-ECHO  * 1    Extract apk                                                                        *
-ECHO  * 2    Optimize images inside                                                             *
-ECHO  * 3    Zip apk                                                                            *
-ECHO  * 4    Sign apk with Testkeys (Dont do this IF its a system apk)                          *
-ECHO  * 5    Zipalign apk (Do once apk is created/signed) Install apk (Dont do this IF          *
+ECHO  * 0.   Adb pull                                                                           *
+ECHO  * 1.   Extract apk                                                                        *
+ECHO  * 2.   Optimize images inside                                                             *
+ECHO  * 3.   Zip apk                                                                            *
+ECHO  * 4.   Sign apk with Testkeys (Dont do this IF its a system apk)                          *
+ECHO  * 5.   Zipalign apk (Do once apk is created/signed) Install apk (Dont do this IF          *
 ECHO  *      system apk, do adb push)                                                           *
-ECHO  * 6    Install apk (Dont do this IF     system apk, do adb push)                          *
-ECHO  * 7    Zip / Sign / Install apk (All in one step)                                         *
-ECHO  * 8    Adb push (Only for system apk)                                                     *
+ECHO  * 6.   Install apk (Dont do this IF     system apk, do adb push)                          *
+ECHO  * 7.   Zip / Sign / Install apk (All in one step)                                         *
+ECHO  * 8.   Adb push (Only for system apk)                                                     *
+ECHO  * 9.   Main Menu                                                                          *
 ECHO  *******************************************************************************************
 ECHO  * Tools Stuff                                                                             *
 ECHO  *******************************************************************************************
@@ -184,7 +185,7 @@ IF %menunr%==5 (goto zipa)
 IF %menunr%==6 (goto ins)
 IF %menunr%==7 (goto alli)
 IF %menunr%==8 (goto apu)
-
+IF %menunr%==9 (goto restart)
 IF %menunr%==a (goto cleanp)
 IF %menunr%==b (goto usrcomp)
 IF %menunr%==c (goto resusrcomp)
@@ -203,22 +204,23 @@ goto MENU00
 :MENU01
 set menunr=GARBAGE2
 CLS
-ECHO  ********************************************************************************************
+ECHO  *******************************************************************************************
 ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc% ^* Heap Size: %heapy%mb ^*  
-ECHO  ********************************************************************************************
+ECHO  *******************************************************************************************
 ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
-ECHO  ********************************************************************************************
-ECHO                                                    HTTP://APKMULTITOOL.COM
+ECHO  *******************************************************************************************
+ECHO  *                                 HTTP://APKMULTITOOL.COM                                 *
 ECHO  *******************************************************************************************
 ECHO  * Advanced Tasks Such As Code Editing                                                     *
 ECHO  *******************************************************************************************
-ECHO  * 1.    Decompile apk                                                                     *
+ECHO  * 1.   Decompile apk                                                                      *
 ECHO  * 2.   Decompile apk (with dependencies)(For proprietary rom apks)                        *
 ECHO  * 3.   Compile System APK files                                                           *
 ECHO  * 4.   Compile Non-System APK Files                                                       *
 ECHO  * 5.   Sign apk with Android Market supported Key                                         *
 ECHO  * 6.   Install apk                                                                        *
 ECHO  * 7.   Compile apk / Sign apk / Install apk (Non-System Apps Only)                        *
+ECHO  * 8.   Main Menu                                                                          *
 ECHO  *******************************************************************************************
 ECHO  * Tools Stuff                                                                             *
 ECHO  *******************************************************************************************
@@ -248,7 +250,7 @@ IF %menunr%==4 (goto nonsyscom)
 IF %menunr%==5 (goto apksignerkey)
 IF %menunr%==6 (goto ins)
 IF %menunr%==7 (goto all)
-
+IF %menunr%==8 (goto restart)
 IF %menunr%==a (goto cleanp)
 IF %menunr%==b (goto usrcomp)
 IF %menunr%==c (goto resusrcomp)
@@ -268,10 +270,13 @@ goto MENU01
 set menunr=GARBAGE3
 CLS
 ECHO  *******************************************************************************************
+ECHO  *                                 HTTP://APKMULTITOOL.COM                                 *
+ECHO  *******************************************************************************************
 ECHO  * Themers Convertion Tools                                                                *
 ECHO  *******************************************************************************************
 ECHO  * 1.   Batch Theme Image Transfer (Read the Instructions before                           *
 ECHO  *      using this feature)                                                                *
+ECHO  * 2.   Main Menu                                                                          *
 ECHO  *******************************************************************************************
 ECHO  * Tools Stuff                                                                             *
 ECHO  *******************************************************************************************
@@ -295,7 +300,7 @@ ECHO  **************************************************************************
 SET /P menunr=Please make your decision:
 
 IF %menunr%==1 (goto btit)
-
+IF %menunr%==2 (goto restart)
 IF %menunr%==a (goto cleanp)
 IF %menunr%==b (goto usrcomp)
 IF %menunr%==c (goto resusrcomp)
@@ -314,13 +319,16 @@ goto MENU02
 set menunr=GARBAGE4
 CLS
 ECHO  *******************************************************************************************
+ECHO  *                                 HTTP://APKMULTITOOL.COM                                 *
+ECHO  *******************************************************************************************
 ECHO  * Batch Operations                                                                        *
 ECHO  *******************************************************************************************
 ECHO  * 1.   Batch Decompile apk Files                                                          *
 ECHO  * 2.   Batch Compile apk Files                                                            *
 ECHO  * 3.   Batch Optimize Apk (inside place-apk-here-to-batch-optimize only)                  *
 ECHO  * 4.   Sign an apk(Batch support)(inside place-apk-here-for-signing folder only)          *
-ECHO  * 5.   Batch optimize ogg files (inside place-ogg-here only)                              *     
+ECHO  * 5.   Batch optimize ogg files (inside place-ogg-here only)                              *
+ECHO  * 6.   Main Menu                                                                          *     
 ECHO  *******************************************************************************************
 ECHO  * Tools Stuff                                                                             *
 ECHO  *******************************************************************************************
@@ -348,7 +356,7 @@ IF %menunr%==2 (goto batcom)
 IF %menunr%==3 (goto bopt)
 IF %menunr%==4 (goto asi)
 IF %menunr%==5 (goto ogg)
-
+IF %menunr%==6 (goto restart)
 IF %menunr%==a (goto cleanp)
 IF %menunr%==b (goto usrcomp)
 IF %menunr%==c (goto resusrcomp)
