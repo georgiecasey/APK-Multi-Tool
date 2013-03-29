@@ -75,7 +75,7 @@ ECHO ^* Compression-Level: %usrc% ^* Resources.arsc Compression-Level: %resusrc%
 ECHO  *******************************************************************************************
 ECHO ^* Decompile : %decs% ^* Current-App: %capp% ^*
 ECHO  *******************************************************************************************
-ECHO                                                    HTTP://APKMULTITOOL.COM
+ECHO  *                                APKTOOL MULTI-TOOLS                                      *
 ECHO  *******************************************************************************************
 ECHO  * 0. IMAGE EDITING                                                                        *
 ECHO  *    This feature allows you to edit images without the need to decompile the apk         *
@@ -607,7 +607,7 @@ IF errorlevel 1 (
 ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
-goto restart
+goto MENU00
 :asi
 cd other
 DEL /Q "../place-apk-here-for-signing/signed.apk"
@@ -666,7 +666,7 @@ roptipng -o99 "../projects/%capp%/**/*.png"
 cd ..
 xcopy "%~dp0temp" "%~dp0projects\%capp%\res" /S /Y
 rmdir temp /S /Q
-goto restart
+goto MENU00
 :noproj
 ECHO Please Select A Project To Work On (Option f)
 PAUSE
@@ -747,7 +747,7 @@ IF errorlevel 1 (
 ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
-goto restart
+goto MENU00
 :zipa
 ECHO Zipaligning Apk
 IF EXIST "%~dp0place-apk-here-for-signing\signed%capp%" "%~dp0other\zipalign.exe" -f 4 "%~dp0place-apk-here-for-signing\signed%capp%" "%~dp0place-apk-here-for-modding\signedaligned%capp%"
@@ -762,7 +762,7 @@ DEL /Q "%~dp0place-apk-here-for-signing\signed%capp%"
 DEL /Q "%~dp0place-apk-here-for-signing\unsigned%capp%"
 rename "%~dp0place-apk-here-for-signing\signedaligned%capp%" signed%capp%
 rename "%~dp0place-apk-here-for-signing\unsignedaligned%capp%" unsigned%capp%
-goto restart
+goto MENU00
 :ex
 cd other
 ECHO Extracting apk
@@ -773,7 +773,7 @@ ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
 cd ..
-goto restart
+goto MENU00
 :zip
 IF NOT EXIST "%~dp0projects\%capp%" GOTO dirnada
 CLS
@@ -792,7 +792,7 @@ PAUSE
 )
 
 cd ..
-goto restart
+goto MENU00
 :oa
 cd other
 ECHO Zipping Apk
@@ -804,7 +804,7 @@ PAUSE
 )
 
 cd ..
-goto restart
+goto MENU00
 :ded
 cd other
 IF EXIST "%~dp0place-apk-here-for-signing\unsigned%capp%" (del /Q "%~dp0place-apk-here-for-signing\unsigned%capp%")
@@ -1017,7 +1017,7 @@ PAUSE
 
 DEL /Q "../place-apk-here-for-signing/unsigned%capp%"
 cd ..
-goto restart
+goto MENU00
 :ins
 ECHO Waiting for device
 "%~dp0other\adb.exe" wait-for-device
@@ -1027,7 +1027,7 @@ IF errorlevel 1 (
 ECHO "An Error Occured, Please Check The Log (option e)"
 PAUSE
 )
-goto restart
+goto MENU00
 :all
 IF NOT EXIST "%~dp0projects\%capp%" GOTO dirnada
 cd other
