@@ -160,7 +160,7 @@ Added the ability to pull Dependencies directly from your phone to use to instal
 Fixed bug with Theme porter not functioning  
 Cosmetic changes to the source.
 
-Version 1.0.12
+Version 2.0.0
 Fixed Compiler bug with option 3 and 4 for none system files.
 Fixed Set current project option not working properly
 Added the ability to set compression level of the Resources.arsc
