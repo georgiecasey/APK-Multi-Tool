@@ -80,13 +80,13 @@ ECHO ***************************************************************************
 PAUSE
 goto RESTART
 :LOGR
-cd other
+
 Start "Read The Log - Main script is still running, close this to return" signer 4
 goto RESTART
 :CHECKUPDATE
 ECHO Please Wait while we CHECK FOR UPDATES
 IF EXIST apkver.txt (del apkver.txt)
-other\wget http://update.apkmultitool.com/apkver.txt
+wget http://update.apkmultitool.com/apkver.txt
 cls
 IF NOT EXIST apkver.txt (goto :RESTART)
 set /a bool = 0
@@ -113,7 +113,7 @@ PAUSE
 goto changed
 :regoto
 PAUSE
-Start cmd /c other\signer 3
+Start cmd /c signer 3
 exit
 )
 )
@@ -126,6 +126,7 @@ ECHO ***************************************************************************
 PAUSE
 goto RESTART
 :SETDIR
+cd ..
 ECHO ***********************************************************************************
 ECHO *                                                                                 *
 ECHO *                          Creating project folder                                *
@@ -231,31 +232,31 @@ PAUSE
 goto FRAMRES
 :FRAMRES1
 cls
-cd other
+
 Start "Installation of framework-res.apk Starting" apkinstall 1
 goto FRAMRES
 :FRAMRES2
 cls
-cd other
+
 Start "Installation of twframework-res.apk Starting" apkinstall 2
 goto FRAMRES
 :FRAMRES3
 cls
-cd other
+
 Start "Installation of com.htc.resources.apk Starting" apkinstall 3
 goto FRAMRES
 :FRAMRES4
 cls
-cd other
+
 Start "Installation of SystemUI.apk Starting" apkinstall 4
 goto FRAMRES
 :FRAMRES5
 cls
-cd other
+
 Start "Installation of SemcGenericUxpRes.apk Starting" apkinstall 5
 goto FRAMRES
 :SYSTEMPULL
-cd other
+
 Start "Pulling of the Android Dependencies Starting" system
 goto FRAMRES
 :ABOUT
@@ -266,7 +267,7 @@ ECHO *                                   About                                  
 ECHO *                                                                               *
 ECHO *********************************************************************************
 ECHO *                                                                               *
-type other\version.txt
+type version.txt
 ECHO *                                                                               *
 ECHO *********************************************************************************
 ECHO *                                                                               *

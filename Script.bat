@@ -93,6 +93,12 @@ ECHO  * 3.  BATCH OPERATIONS                                                    
 ECHO  *     This feature allows you to do many apk files at the same time for mass file editing *
 ECHO  *     as well as the ability to compile multiple files at the same time                   *
 ECHO  *******************************************************************************************
+ECHO  * 4.  SETUP OPERATIONS                                                                    *
+ECHO  *     This Feature allows you to setup this tool if this is the first time you are using  *
+ECHO  *     this application to setup the folders required to be able to edit the apk files.    *
+ECHO  *     This feature also allows you to install needed system files like updating your      *
+ECHO  *     Frameworks-res and other system dependencies required to decompile system apps      *
+ECHO  *******************************************************************************************
 ECHO  * Tools Stuff                                                                             *
 ECHO  *******************************************************************************************
 ECHO  * a.   Clean Files/Folders                                                                *
@@ -117,7 +123,7 @@ IF %menunr%==0 (goto MENU00)
 IF %menunr%==1 (goto MENU01)
 IF %menunr%==2 (goto MENU02)
 IF %menunr%==3 (goto MENU03)
-
+IF %menunr%==4 (goto sysset)
 IF %menunr%==a (goto cleanp)
 IF %menunr%==b (goto usrcomp)
 IF %menunr%==c (goto resusrcomp)
@@ -1095,6 +1101,9 @@ goto restart
 :endab
 cd ..
 @ECHO Optimization complete for %~1
+:sysset
+start %~dp0other\Setup
+goto restart
 :quit
 exit
 
