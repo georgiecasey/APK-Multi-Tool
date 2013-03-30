@@ -188,7 +188,7 @@ IF %menunr%==2 (goto opt)
 IF %menunr%==3 (goto zip)
 IF %menunr%==4 (goto stki)
 IF %menunr%==5 (goto zipa)
-IF %menunr%==6 (goto ins1)
+IF %menunr%==6 (goto ins)
 IF %menunr%==7 (goto alli)
 IF %menunr%==8 (goto apu)
 IF %menunr%==9 (goto restart)
@@ -205,216 +205,6 @@ IF %menunr%==00 (goto quit)
 IF %capp%==None goto noproj
 :WHAT
 ECHO You went crazy and entered something that wasnt part of the menu options
-PAUSE
-goto MENU00
-:ap
-ECHO Where do you want adb to pull the apk from? 
-ECHO Example of input : /system/app/launcher.apk
-set /P INPUT=Type input: %=%
-ECHO Pulling apk
-"%~dp0other\adb.exe" pull %INPUT% "%~dp0place-apk-here-for-modding\something.apk"
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-goto MENU00
-)
-set jar=0
-set ext=jar
-IF "!INPUT:%ext%=!" NEQ "%INPUT%" set jar=1
-:renameagain
-ECHO What filename would you like this app to be stored as ?
-ECHO Eg (launcher.apk)
-set /P INPUT=Type input: %=%
-IF EXIST "%~dp0place-apk-here-for-modding\%INPUT%" (
-ECHO File Already Exists, Try Another Name
-PAUSE
-goto renameagain)
-rename "%~dp0place-apk-here-for-modding\something.apk" %INPUT%
-ECHO Would you like to set this as your current project (y/n)?
-set /P inab=Type input: %=%
-IF %inab%==y (set capp=%INPUT%)
-goto MENU00
-:ex
-cd other
-ECHO Extracting apk
-IF EXIST "../projects/%capp%" (rmdir /S /Q "../projects/%capp%")
-7za x -o"../projects/%capp%" "../place-apk-here-for-modding/%capp%"
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-)
-cd ..
-goto MENU00
-:opt
-IF NOT EXIST "%~dp0projects\%capp%" GOTO dirnadaa
-mkdir temp
-xcopy "%~dp0projects\%capp%\res\*.9.png" "%~dp0temp" /S /Y
-cd other
-ECHO Optimizing Png's
-roptipng -o99 "../projects/%capp%/**/*.png"
-cd ..
-xcopy "%~dp0temp" "%~dp0projects\%capp%\res" /S /Y
-rmdir temp /S /Q
-goto MENU00
-:zip
-IF NOT EXIST "%~dp0projects\%capp%" GOTO dirnadaa
-CLS
-ECHO 1    System apk (Retains signature)
-ECHO 2    Regular apk (Removes signature for re-signing)
-SET /P menunr=Please make your decision: 
-IF %menunr%==1 (goto sys)
-IF %menunr%==2 (goto oa)
-:sys
-ECHO Zipping Apk
-cd other
-7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-)
-cd ..
-goto MENU00
-:oa
-cd other
-ECHO Zipping Apk
-rmdir /S /Q "../out/META-INF"
-7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-)
-cd ..
-goto MENU00
-:stki
-cd other
-ECHO Signing Apk
-java -Xmx%heapy%m -jar signapk.jar -w testkey.x509.pem testkey.pk8 ../place-apk-here-for-signing/unsigned%capp% ../place-apk-here-for-signing/signed%capp%
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-goto MENU00
-)
-DEL /Q "../place-apk-here-for-signing/unsigned%capp%"
-cd ..
-goto MENU00
-:zipa
-ECHO Zipaligning Apk
-IF EXIST "%~dp0place-apk-here-for-signing\signed%capp%" "%~dp0other\zipalign.exe" -f 4 "%~dp0place-apk-here-for-signing\signed%capp%" "%~dp0place-apk-here-for-modding\signedaligned%capp%"
-IF EXIST "%~dp0place-apk-here-for-signing\unsigned%capp%" "%~dp0other\zipalign.exe" -f 4 "%~dp0place-apk-here-for-signing\unsigned%capp%" "%~dp0place-apk-here-for-signing\unsignedaligned%capp%"
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-MENU00
-)
-DEL /Q "%~dp0place-apk-here-for-signing\signed%capp%"
-DEL /Q "%~dp0place-apk-here-for-signing\unsigned%capp%"
-rename "%~dp0place-apk-here-for-signing\signedaligned%capp%" signed%capp%
-rename "%~dp0place-apk-here-for-signing\unsignedaligned%capp%" unsigned%capp%
-goto MENU00
-:ins1
-ECHO Waiting for device
-"%~dp0other\adb.exe" wait-for-device
-ECHO Installing Apk
-"%~dp0other\adb.exe" install -r %~dp0place-apk-here-for-signing/signed%capp%
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-)
-goto MENU00
-:alli
-IF NOT EXIST "%~dp0projects\%capp%" GOTO dirnadaa
-CLS
-ECHO 1    System apk (Retains signature)
-ECHO 2    Regular apk (Removes signature for re-signing)
-SET /P menunr=Please make your decision: 
-IF %menunr%==1 (goto sys1)
-IF %menunr%==2 (goto oa1)
-:sys1
-ECHO Zipping Apk
-cd other
-7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-goto MENU00
-)
-cd ..
-goto si1
-:oa1
-cd other
-ECHO Zipping Apk
-rmdir /S /Q "../out/META-INF"
-7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-goto MENU00
-)
-cd ..
-:si1
-cd other
-ECHO Signing Apk
-java -Xmx%heapy%m -jar signapk.jar -w testkey.x509.pem testkey.pk8 ../place-apk-here-for-signing/unsigned%capp% ../place-apk-here-for-signing/signed%capp%
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-goto MENU00
-)
-DEL /Q "../place-apk-here-for-signing/unsigned%capp%"
-cd ..
-:asi
-cd other
-DEL /Q "../place-apk-here-for-signing/signed.apk"
-FOR %%F in (../place-apk-here-for-signing/*) DO call signer "%%F"
-cd ..
-goto MENU00
-:apu
-ECHO Do you want to keep the file name ? (any key for yes, n for no)
-set /p INPUT=""
-if %INPUT%==n (
-ECHO "Enter the new name: "
-set /P newcapp=Type input: %=%
-set newname=1
-goto push_dir
-)
-set newname=0 
-:push_dir
-ECHO Where do you want adb to push to ? (f) for framework and (a) for app
-set /P fileloc=""
-"%~dp0other\adb.exe" devices >null
-"%~dp0other\adb.exe" remount
-ECHO Pushing apk
-if %fileloc%==a (
-if %newname%==0 (
-"%~dp0other\adb.exe" push "place-apk-here-for-modding\system%capp%" /system/app/%capp%
-goto chk_err_push
-)
-if %newname%==1 (
-"%~dp0other\adb.exe" push "place-apk-here-for-modding\system%capp%" /system/app/%newcapp%
-goto chk_err_push
-)
-)
-if %fileloc%==f (
-if %newname%==0 (
-"%~dp0other\adb.exe" push "place-apk-here-for-modding\system%capp%" /system/framework/%capp%
-goto chk_err_push
-)
-if %newname%==1 (
-"%~dp0other\adb.exe" push "place-apk-here-for-modding\system%capp%" /system/framework/%newcapp%
-goto chk_err_push
-)
-)
-ECHO "u pressed the wrong key"
-goto push_dir
-:chk_err_push
-IF errorlevel 1 (
-ECHO "An Error Occured, Please Check The Log (option e)"
-PAUSE
-MENU00
-)
-goto MENU00
-:dirnadaa
-ECHO %capp% has not been extracted, please do so before doing this step
 PAUSE
 goto MENU00
 :MENU01
@@ -770,7 +560,60 @@ cd ..
 MOVE other\temp\*  place-ogg-here
 rmdir /S /Q other\temp
 goto restart
-
+:alli
+IF NOT EXIST "%~dp0projects\%capp%" GOTO dirnada
+CLS
+ECHO 1    System apk (Retains signature)
+ECHO 2    Regular apk (Removes signature for re-signing)
+SET /P menunr=Please make your decision: 
+IF %menunr%==1 (goto sys1)
+IF %menunr%==2 (goto oa1)
+:sys1
+ECHO Zipping Apk
+cd other
+7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
+cd ..
+goto si1
+:oa1
+cd other
+ECHO Zipping Apk
+rmdir /S /Q "../out/META-INF"
+7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
+cd ..
+:si1
+cd other
+ECHO Signing Apk
+java -Xmx%heapy%m -jar signapk.jar -w testkey.x509.pem testkey.pk8 ../place-apk-here-for-signing/unsigned%capp% ../place-apk-here-for-signing/signed%capp%
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
+DEL /Q "../place-apk-here-for-signing/unsigned%capp%"
+cd ..
+:ins1
+ECHO Waiting for device
+"%~dp0other\adb.exe" wait-for-device
+ECHO Installing Apk
+"%~dp0other\adb.exe" install -r %~dp0place-apk-here-for-signing/signed%capp%
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
+goto MENU00
+:asi
+cd other
+DEL /Q "../place-apk-here-for-signing/signed.apk"
+FOR %%F in (../place-apk-here-for-signing/*) DO call signer "%%F"
+cd ..
+goto restart
 :bopt
 set /P INPUT=Do you want to zipalign(z), optimize png(p) or both(zp)? : %=%
 FOR %%F IN (place-apk-here-to-batch-optimize\*.apk) DO (call :dan "%%F")
@@ -813,7 +656,17 @@ goto endab
 ECHO %capp% has not been extracted, please do so before doing this step
 PAUSE
 goto restart
-
+:opt
+IF NOT EXIST "%~dp0projects\%capp%" GOTO dirnada
+mkdir temp
+xcopy "%~dp0projects\%capp%\res\*.9.png" "%~dp0temp" /S /Y
+cd other
+ECHO Optimizing Png's
+roptipng -o99 "../projects/%capp%/**/*.png"
+cd ..
+xcopy "%~dp0temp" "%~dp0projects\%capp%\res" /S /Y
+rmdir temp /S /Q
+goto MENU00
 :noproj
 ECHO Please Select A Project To Work On (Option f)
 PAUSE
@@ -822,7 +675,136 @@ goto MENU00
 ECHO Please Select A Project To Work On (Option f)
 PAUSE
 goto MENU01
+:ap
+ECHO Where do you want adb to pull the apk from? 
+ECHO Example of input : /system/app/launcher.apk
+set /P INPUT=Type input: %=%
+ECHO Pulling apk
+"%~dp0other\adb.exe" pull %INPUT% "%~dp0place-apk-here-for-modding\something.apk"
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+goto restart
+)
+set jar=0
+set ext=jar
+IF "!INPUT:%ext%=!" NEQ "%INPUT%" set jar=1
+:renameagain
+ECHO What filename would you like this app to be stored as ?
+ECHO Eg (launcher.apk)
+set /P INPUT=Type input: %=%
+IF EXIST "%~dp0place-apk-here-for-modding\%INPUT%" (
+ECHO File Already Exists, Try Another Name
+PAUSE
+goto renameagain)
+rename "%~dp0place-apk-here-for-modding\something.apk" %INPUT%
+ECHO Would you like to set this as your current project (y/n)?
+set /P inab=Type input: %=%
+IF %inab%==y (set capp=%INPUT%)
+goto restart
+:apu
+ECHO Do you want to keep the file name ? (any key for yes, n for no)
+set /p INPUT=""
+if %INPUT%==n (
+ECHO "Enter the new name: "
+set /P newcapp=Type input: %=%
+set newname=1
+goto push_dir
+)
+set newname=0 
+ 
+:push_dir
+ECHO Where do you want adb to push to ? (f) for framework and (a) for app
+set /P fileloc=""
+"%~dp0other\adb.exe" devices >null
+"%~dp0other\adb.exe" remount
+ECHO Pushing apk
+if %fileloc%==a (
+if %newname%==0 (
+"%~dp0other\adb.exe" push "place-apk-here-for-modding\system%capp%" /system/app/%capp%
+goto chk_err_push
+)
+if %newname%==1 (
+"%~dp0other\adb.exe" push "place-apk-here-for-modding\system%capp%" /system/app/%newcapp%
+goto chk_err_push
+)
+)
+if %fileloc%==f (
+if %newname%==0 (
+"%~dp0other\adb.exe" push "place-apk-here-for-modding\system%capp%" /system/framework/%capp%
+goto chk_err_push
+)
+if %newname%==1 (
+"%~dp0other\adb.exe" push "place-apk-here-for-modding\system%capp%" /system/framework/%newcapp%
+goto chk_err_push
+)
+)
+ECHO "u pressed the wrong key"
+goto push_dir
 
+:chk_err_push
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
+goto MENU00
+:zipa
+ECHO Zipaligning Apk
+IF EXIST "%~dp0place-apk-here-for-signing\signed%capp%" "%~dp0other\zipalign.exe" -f 4 "%~dp0place-apk-here-for-signing\signed%capp%" "%~dp0place-apk-here-for-modding\signedaligned%capp%"
+
+IF EXIST "%~dp0place-apk-here-for-signing\unsigned%capp%" "%~dp0other\zipalign.exe" -f 4 "%~dp0place-apk-here-for-signing\unsigned%capp%" "%~dp0place-apk-here-for-signing\unsignedaligned%capp%"
+
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
+DEL /Q "%~dp0place-apk-here-for-signing\signed%capp%"
+DEL /Q "%~dp0place-apk-here-for-signing\unsigned%capp%"
+rename "%~dp0place-apk-here-for-signing\signedaligned%capp%" signed%capp%
+rename "%~dp0place-apk-here-for-signing\unsignedaligned%capp%" unsigned%capp%
+goto MENU00
+:ex
+cd other
+ECHO Extracting apk
+IF EXIST "../projects/%capp%" (rmdir /S /Q "../projects/%capp%")
+7za x -o"../projects/%capp%" "../place-apk-here-for-modding/%capp%"
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
+cd ..
+goto MENU00
+:zip
+IF NOT EXIST "%~dp0projects\%capp%" GOTO dirnada
+CLS
+ECHO 1    System apk (Retains signature)
+ECHO 2    Regular apk (Removes signature for re-signing)
+SET /P menunr=Please make your decision: 
+IF %menunr%==1 (goto sys)
+IF %menunr%==2 (goto oa)
+:sys
+ECHO Zipping Apk
+cd other
+7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
+
+cd ..
+goto MENU00
+:oa
+cd other
+ECHO Zipping Apk
+rmdir /S /Q "../out/META-INF"
+7za a -tzip "../place-apk-here-for-signing/unsigned%capp%" "../projects/%capp%/*" -mx%usrc%
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
+
+cd ..
+goto MENU00
 :ded
 cd other
 IF EXIST "%~dp0place-apk-here-for-signing\unsigned%capp%" (del /Q "%~dp0place-apk-here-for-signing\unsigned%capp%")
@@ -1024,7 +1006,18 @@ PAUSE
 DEL /Q "../place-apk-here-for-signing/unsigned%capp%"
 cd ..
 goto restart
+:stki
+cd other
+ECHO Signing Apk
+java -Xmx%heapy%m -jar signapk.jar -w testkey.x509.pem testkey.pk8 ../place-apk-here-for-signing/unsigned%capp% ../place-apk-here-for-signing/signed%capp%
+IF errorlevel 1 (
+ECHO "An Error Occured, Please Check The Log (option e)"
+PAUSE
+)
 
+DEL /Q "../place-apk-here-for-signing/unsigned%capp%"
+cd ..
+goto MENU00
 :ins
 ECHO Waiting for device
 "%~dp0other\adb.exe" wait-for-device
